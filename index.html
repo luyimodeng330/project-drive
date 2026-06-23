@@ -150,6 +150,32 @@
   .tag-consult { background: var(--blue-plan); }
   .tag-product { background: var(--green-ok); }
 
+  /* Delete project button */
+  .delete-project-btn {
+    margin-left: auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--warm-gray-light);
+    background: transparent;
+    color: var(--warm-gray);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .delete-project-btn:hover {
+    background: var(--red-bg);
+    color: var(--red-alert);
+    border-color: var(--red-alert);
+  }
+  .project-section.deleted {
+    display: none;
+  }
+
   /* Module Cards */
   .module-grid {
     display: grid;
@@ -548,6 +574,9 @@
       <div id="todayWeek"></div>
     </div>
   </div>
+  <div class="header-actions" id="headerActions" style="display:none; margin-top:8px; text-align:right;">
+    <button onclick="restoreAllProjects()" style="background:transparent;border:1px solid var(--warm-gray-light);color:var(--warm-gray-light);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;">恢复已删除项目</button>
+  </div>
 </div>
 
 <!-- Quick Stats -->
@@ -591,6 +620,7 @@
         <div class="project-subtitle">女性高管AI陪伴 · ¥19,800/年</div>
       </div>
       <span class="project-tag tag-service">数字服务</span>
+      <button class="delete-project-btn" onclick="deleteProject('project-herskill')" title="删除项目">×</button>
     </div>
     <div class="module-grid">
       <!-- 市场推广 -->
@@ -732,6 +762,7 @@
         <div class="project-subtitle">项目制咨询 · ¥5-15万/项目</div>
       </div>
       <span class="project-tag tag-consult">咨询服务</span>
+      <button class="delete-project-btn" onclick="deleteProject('project-marketcraft')" title="删除项目">×</button>
     </div>
     <div class="module-grid">
       <!-- 市场推广 -->
@@ -873,6 +904,7 @@
         <div class="project-subtitle">精油冷制皂品牌 · 实体产品</div>
       </div>
       <span class="project-tag tag-product">实体产品</span>
+      <button class="delete-project-btn" onclick="deleteProject('project-xirang')" title="删除项目">×</button>
     </div>
     <div class="module-grid">
       <!-- 品牌内容 -->
@@ -1332,6 +1364,50 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 1500);
 }
+
+// Delete project
+function deleteProject(id) {
+  const section = document.getElementById(id);
+  if (!section) return;
+  const title = section.querySelector('.project-title')?.textContent || '项目';
+  if (!confirm(`确定要删除「${title}」吗？\n删除后页面将隐藏该项目。`)) return;
+  section.classList.add('deleted');
+  // Persist deleted projects in localStorage
+  const deleted = JSON.parse(localStorage.getItem('projectDrive_deleted') || '[]');
+  if (!deleted.includes(id)) {
+    deleted.push(id);
+    localStorage.setItem('projectDrive_deleted', JSON.stringify(deleted));
+  }
+  document.getElementById('headerActions').style.display = 'block';
+  updateStats();
+  showToast('项目已隐藏');
+}
+
+// Restore deleted projects on load
+(function() {
+  const deleted = JSON.parse(localStorage.getItem('projectDrive_deleted') || '[]');
+  deleted.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('deleted');
+  });
+  if (deleted.length > 0) {
+    document.getElementById('headerActions').style.display = 'block';
+  }
+})();
+
+function restoreAllProjects() {
+  if (!confirm('确定恢复所有已删除的项目吗？')) return;
+  const deleted = JSON.parse(localStorage.getItem('projectDrive_deleted') || '[]');
+  deleted.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('deleted');
+  });
+  localStorage.removeItem('projectDrive_deleted');
+  document.getElementById('headerActions').style.display = 'none';
+  updateStats();
+  showToast('已恢复所有项目');
+}
+
 
 // Contact tags toggle
 document.querySelectorAll('.contact-tag').forEach(tag => {
