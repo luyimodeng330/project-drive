@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目推进总览 · Daily Drive</title>
+<style>
+  :root {
+    --wine: #431C1E;
+    --wine-light: #5A282A;
+    --wine-lighter: #6D3537;
+    --warm-gray: #99A0AC;
+    --warm-gray-light: #B5BBC5;
+    --warm-gray-dark: #7A8290;
+    --beige: #F3F1EE;
+    --beige-dark: #E8E5E0;
+    --white: #FFFFFF;
+    --green-ok: #2D8A56;
+    --green-bg: #E8F5E9;
+    --yellow-prog: #D4A017;
+    --yellow-bg: #FFF8E1;
+    --red-alert: #C62828;
+    --red-bg: #FFEBEE;
+    --blue-plan: #1565C0;
+    --blue-bg: #E3F2FD;
+    --purple: #6A1B9A;
+    --purple-bg: #F3E5F5;
+    --orange: #E65100;
+    --orange-bg: #FFF3E0;
+    --shadow: 0 2px 8px rgba(67,28,30,0.08);
+    --shadow-md: 0 4px 16px rgba(67,28,30,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+    background: var(--beige);
+    color: var(--wine);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--wine);
+    color: var(--beige);
+    padding: 16px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .header h1 span { color: var(--warm-gray-light); font-size: 13px; font-weight: 400; }
+  .date-display {
+    font-size: 14px;
+    color: var(--warm-gray-light);
+    text-align: right;
+  }
+  .date-display .today { font-size: 18px; font-weight: 600; color: var(--beige); }
+
+  /* Quick Stats */
+  .stats-bar {
+    display: flex;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--white);
+    border-bottom: 1px solid var(--beige-dark);
+  }
+  .stat-item {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: var(--radius-sm);
+    background: var(--beige);
+    min-width: 0;
+  }
+  .stat-item .num {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .stat-item .label {
+    font-size: 11px;
+    color: var(--warm-gray);
+    margin-top: 2px;
+  }
+  .stat-ok .num { color: var(--green-ok); }
+  .stat-prog .num { color: var(--yellow-prog); }
+  .stat-alert .num { color: var(--red-alert); }
+  .stat-plan .num { color: var(--blue-plan); }
+
+  /* Main Content */
+  .main { padding: 16px 20px; }
+
+  /* Project Section */
+  .project-section {
+    margin-bottom: 20px;
+  }
+  .project-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--wine);
+  }
+  .project-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--white);
+    background: var(--wine);
+  }
+  .project-icon.skill { background: var(--purple); }
+  .project-icon.market { background: var(--blue-plan); }
+  .project-icon.soap { background: var(--green-ok); }
+  .project-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .project-subtitle {
+    font-size: 12px;
+    color: var(--warm-gray);
+  }
+  .project-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: var(--white);
+    font-weight: 500;
+  }
+  .tag-service { background: var(--purple); }
+  .tag-consult { background: var(--blue-plan); }
+  .tag-product { background: var(--green-ok); }
+
+  /* Module Cards */
+  .module-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .module-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+    transition: all 0.2s;
+  }
+  .module-card:hover { box-shadow: var(--shadow-md); }
+
+  .module-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .module-name {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .module-detail {
+    font-size: 12px;
+    color: var(--warm-gray);
+    margin-top: 2px;
+  }
+
+  /* Status Badge */
+  .status-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s;
+  }
+  .status-badge:hover { transform: scale(1.05); }
+  .status-ok { background: var(--green-bg); color: var(--green-ok); }
+  .status-prog { background: var(--yellow-bg); color: var(--yellow-prog); }
+  .status-alert { background: var(--red-bg); color: var(--red-alert); }
+  .status-plan { background: var(--blue-bg); color: var(--blue-plan); }
+  .status-pause { background: var(--beige-dark); color: var(--warm-gray-dark); }
+
+  /* Task Items */
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 4px 0;
+  }
+  .task-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid var(--warm-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 12px;
+    color: transparent;
+  }
+  .task-check:hover { border-color: var(--wine); }
+  .task-check.checked {
+    background: var(--green-ok);
+    border-color: var(--green-ok);
+    color: var(--white);
+  }
+  .task-text { flex: 1; min-width: 0; }
+  .task-text.done { color: var(--warm-gray); }
+  .task-priority {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .priority-high { background: var(--red-bg); color: var(--red-alert); }
+  .priority-mid { background: var(--yellow-bg); color: var(--yellow-prog); }
+  .priority-low { background: var(--blue-bg); color: var(--blue-plan); }
+
+  /* Add Task */
+  .add-task-btn {
+    font-size: 12px;
+    color: var(--warm-gray);
+    padding: 4px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .add-task-btn:hover { color: var(--wine); }
+
+  /* Note Area */
+  .module-note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--warm-gray);
+    border-top: 1px dashed var(--beige-dark);
+    padding-top: 6px;
+  }
+  .note-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    color: var(--wine);
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    line-height: 1.5;
+    min-height: 20px;
+  }
+  .note-input::placeholder { color: var(--warm-gray-light); }
+
+  /* Progress Bar */
+  .progress-bar-wrap {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--beige-dark);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green-ok);
+    border-radius: 3px;
+    transition: width 0.3s;
+  }
+  .progress-text {
+    font-size: 11px;
+    color: var(--warm-gray);
+    white-space: nowrap;
+  }
+
+  /* Daily Log */
+  .daily-log {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 14px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .log-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .log-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .log-date {
+    font-size: 12px;
+    color: var(--warm-gray);
+  }
+  .log-input {
+    width: 100%;
+    border: 1px solid var(--beige-dark);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    font-size: 13px;
+    color: var(--wine);
+    font-family: inherit;
+    resize: vertical;
+    min-height: 60px;
+    outline: none;
+    transition: border 0.2s;
+  }
+  .log-input:focus { border-color: var(--wine); }
+  .log-input::placeholder { color: var(--warm-gray-light); }
+
+  /* Contact Tags */
+  .contact-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .contact-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: var(--beige);
+    color: var(--wine-light);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .contact-tag:hover { background: var(--wine); color: var(--beige); }
+  .contact-tag.active { background: var(--wine); color: var(--beige); }
+
+  /* Sales Number */
+  .sales-mini {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .sales-mini-item {
+    flex: 1;
+    text-align: center;
+    padding: 4px;
+    background: var(--beige);
+    border-radius: var(--radius-sm);
+  }
+  .sales-mini-item .val {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--wine);
+  }
+  .sales-mini-item .lbl {
+    font-size: 10px;
+    color: var(--warm-gray);
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--wine);
+    color: var(--beige);
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 200;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(67,28,30,0.5);
+    z-index: 150;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow-md);
+  }
+  .modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .modal-input {
+    width: 100%;
+    border: 1px solid var(--beige-dark);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    margin-bottom: 8px;
+  }
+  .modal-input:focus { border-color: var(--wine); }
+  .modal-priority-select {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .modal-priority-btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-weight: 500;
+  }
+  .modal-priority-btn.p-high { background: var(--red-bg); color: var(--red-alert); }
+  .modal-priority-btn.p-high.sel { border-color: var(--red-alert); }
+  .modal-priority-btn.p-mid { background: var(--yellow-bg); color: var(--yellow-prog); }
+  .modal-priority-btn.p-mid.sel { border-color: var(--yellow-prog); }
+  .modal-priority-btn.p-low { background: var(--blue-bg); color: var(--blue-plan); }
+  .modal-priority-btn.p-low.sel { border-color: var(--blue-plan); }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  .modal-btn {
+    padding: 8px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    border: none;
+  }
+  .modal-btn-cancel { background: var(--beige); color: var(--warm-gray); }
+  .modal-btn-ok { background: var(--wine); color: var(--beige); }
+
+  /* Section for life items */
+  .life-section {
+    margin-bottom: 20px;
+  }
+  .life-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--warm-gray);
+  }
+  .life-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: var(--warm-gray);
+    color: var(--beige);
+  }
+  .life-title { font-size: 18px; font-weight: 700; color: var(--warm-gray-dark); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--warm-gray);
+  }
+
+  /* Print-friendly */
+  @media print {
+    .header { position: static; }
+    .toast { display: none; }
+    .modal-overlay { display: none; }
+  }
+
+  /* Tablet */
+  @media (min-width: 600px) {
+    .module-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 960px) {
+    .main { max-width: 900px; margin: 0 auto; }
+    .module-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .stats-bar { max-width: 900px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-top">
+    <h1>项目推进总览 <span>DAILY DRIVE</span></h1>
+    <div class="date-display">
+      <div class="today" id="todayDate"></div>
+      <div id="todayWeek"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="stats-bar">
+  <div class="stat-item stat-ok">
+    <div class="num" id="statDone">0</div>
+    <div class="label">已完成</div>
+  </div>
+  <div class="stat-item stat-prog">
+    <div class="num" id="statProg">0</div>
+    <div class="label">推进中</div>
+  </div>
+  <div class="stat-item stat-alert">
+    <div class="num" id="statBlock">0</div>
+    <div class="label">受阻</div>
+  </div>
+  <div class="stat-item stat-plan">
+    <div class="num" id="statPlan">0</div>
+    <div class="label">待启动</div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+  <!-- Daily Log -->
+  <div class="daily-log">
+    <div class="log-header">
+      <div class="log-title">📌 今日记录</div>
+      <div class="log-date" id="logDate"></div>
+    </div>
+    <textarea class="log-input" id="dailyNote" placeholder="今天最重要的3件事、心得、灵感…"></textarea>
+  </div>
+
+  <!-- HerSkill -->
+  <div class="project-section" id="project-herskill">
+    <div class="project-header">
+      <div class="project-icon skill">✦</div>
+      <div>
+        <div class="project-title">HerSkill</div>
+        <div class="project-subtitle">女性高管AI陪伴 · ¥19,800/年</div>
+      </div>
+      <span class="project-tag tag-service">数字服务</span>
+    </div>
+    <div class="module-grid">
+      <!-- 市场推广 -->
+      <div class="module-card" data-project="herskill" data-module="marketing">
+        <div class="module-top">
+          <div>
+            <div class="module-name">📣 市场推广</div>
+            <div class="module-detail">小红书 · 抖音 · 视频号 · 公众号</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">小红书：发布本周内容计划</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">抖音：短视频选题与拍摄</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">视频号：直播排期确认</div>
+            <span class="task-priority priority-low">低</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">公众号：深度文章撰写</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('herskill','marketing')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：内容排期、素材库…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="progress-text">0%</div>
+        </div>
+      </div>
+
+      <!-- 销售转化 -->
+      <div class="module-card" data-project="herskill" data-module="sales">
+        <div class="module-top">
+          <div>
+            <div class="module-name">🎯 销售转化</div>
+            <div class="module-detail">客户沟通 · 方案演示 · 促成签约</div>
+          </div>
+          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
+        </div>
+        <div class="contact-tags">
+          <span class="contact-tag active">江苏无锡商会</span>
+          <span class="contact-tag">成都科技局</span>
+          <span class="contact-tag">大蓉和餐饮</span>
+          <span class="contact-tag">科技园区女企业家群</span>
+        </div>
+        <div class="task-list" style="margin-top:8px">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">无锡商会：跟进对接人回复</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">成都科技局：准备方案演示PPT</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">大蓉和餐饮：品牌部联络</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('herskill','sales')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：沟通进展、下次跟进时间…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+          <div class="progress-text">10%</div>
+        </div>
+      </div>
+
+      <!-- 签约/销售 -->
+      <div class="module-card" data-project="herskill" data-module="revenue">
+        <div class="module-top">
+          <div>
+            <div class="module-name">💰 签约与销售</div>
+            <div class="module-detail">成交追踪 · 收入 · 客户留存</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
+        </div>
+        <div class="sales-mini">
+          <div class="sales-mini-item">
+            <div class="val">0</div>
+            <div class="lbl">已签约</div>
+          </div>
+          <div class="sales-mini-item">
+            <div class="val">¥0</div>
+            <div class="lbl">本月收入</div>
+          </div>
+          <div class="sales-mini-item">
+            <div class="val">3</div>
+            <div class="lbl">潜在客户</div>
+          </div>
+        </div>
+        <div class="task-list" style="margin-top:8px">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">确认首批签约客户名单</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">设计签约流程（合同+支付）</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('herskill','revenue')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：签约进展、客户反馈…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="progress-text">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MarketCraft -->
+  <div class="project-section" id="project-marketcraft">
+    <div class="project-header">
+      <div class="project-icon market">◈</div>
+      <div>
+        <div class="project-title">MarketCraft</div>
+        <div class="project-subtitle">项目制咨询 · ¥5-15万/项目</div>
+      </div>
+      <span class="project-tag tag-consult">咨询服务</span>
+    </div>
+    <div class="module-grid">
+      <!-- 市场推广 -->
+      <div class="module-card" data-project="marketcraft" data-module="marketing">
+        <div class="module-top">
+          <div>
+            <div class="module-name">📣 市场推广</div>
+            <div class="module-detail">小红书 · 抖音 · 视频号 · 公众号</div>
+          </div>
+          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">小红书：行业案例解读内容</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">公众号：MarketCraft方法论连载</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">抖音：客户访谈短视频</div>
+            <span class="task-priority priority-low">低</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">视频号：行业洞察直播</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('marketcraft','marketing')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：内容排期…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:15%"></div></div>
+          <div class="progress-text">15%</div>
+        </div>
+      </div>
+
+      <!-- 销售转化 -->
+      <div class="module-card" data-project="marketcraft" data-module="sales">
+        <div class="module-top">
+          <div>
+            <div class="module-name">🎯 销售转化</div>
+            <div class="module-detail">企业客户 · 方案定制 · 项目签约</div>
+          </div>
+          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
+        </div>
+        <div class="contact-tags">
+          <span class="contact-tag active">成都科技局</span>
+          <span class="contact-tag">大蓉和餐饮品牌部</span>
+          <span class="contact-tag">无锡商会企业家</span>
+          <span class="contact-tag">中小企业协会</span>
+        </div>
+        <div class="task-list" style="margin-top:8px">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">成都科技局：咨询方案提案</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">大蓉和餐饮：品牌诊断需求确认</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">无锡商会：项目制合作方案沟通</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('marketcraft','sales')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：客户需求、提案进度…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+          <div class="progress-text">20%</div>
+        </div>
+      </div>
+
+      <!-- 签约/销售 -->
+      <div class="module-card" data-project="marketcraft" data-module="revenue">
+        <div class="module-top">
+          <div>
+            <div class="module-name">💰 签约与销售</div>
+            <div class="module-detail">项目签约 · 收入 · 交付进度</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
+        </div>
+        <div class="sales-mini">
+          <div class="sales-mini-item">
+            <div class="val">0</div>
+            <div class="lbl">已签约项目</div>
+          </div>
+          <div class="sales-mini-item">
+            <div class="val">¥0</div>
+            <div class="lbl">本月收入</div>
+          </div>
+          <div class="sales-mini-item">
+            <div class="val">2</div>
+            <div class="lbl">提案中</div>
+          </div>
+        </div>
+        <div class="task-list" style="margin-top:8px">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">准备标准化咨询服务合同</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">确认首单定价与交付范围</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('marketcraft','revenue')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：项目进展、交付节点…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="progress-text">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 息壤 -->
+  <div class="project-section" id="project-xirang">
+    <div class="project-header">
+      <div class="project-icon soap">🌿</div>
+      <div>
+        <div class="project-title">息壤 · 冷制皂</div>
+        <div class="project-subtitle">精油冷制皂品牌 · 实体产品</div>
+      </div>
+      <span class="project-tag tag-product">实体产品</span>
+    </div>
+    <div class="module-grid">
+      <!-- 品牌内容 -->
+      <div class="module-card" data-project="xirang" data-module="brand-content">
+        <div class="module-top">
+          <div>
+            <div class="module-name">📣 品牌内容</div>
+            <div class="module-detail">小红书 · 抖音 · 视频号 · 公众号</div>
+          </div>
+          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">小红书：皂品测评/精油知识图文</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">抖音：制皂过程短视频/直播</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">视频号：品牌故事系列</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">公众号：冷制皂工艺科普长文</div>
+            <span class="task-priority priority-low">低</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('xirang','brand-content')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：内容排期、拍摄计划…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+          <div class="progress-text">20%</div>
+        </div>
+      </div>
+
+      <!-- 产品研发 -->
+      <div class="module-card" data-project="xirang" data-module="product-dev">
+        <div class="module-top">
+          <div>
+            <div class="module-name">🧪 产品研发</div>
+            <div class="module-detail">配方开发 · 新品测试 · 皂型设计</div>
+          </div>
+          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">确定首批3-5个皂品配方</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">小批量试皂 & 晾皂测试</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">皂型与外观设计确认</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">pH值测试 & 质检标准制定</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('xirang','product-dev')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：配方笔记、晾皂周期28-40天…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
+          <div class="progress-text">30%</div>
+        </div>
+      </div>
+
+      <!-- 供应链 -->
+      <div class="module-card" data-project="xirang" data-module="supply-chain">
+        <div class="module-top">
+          <div>
+            <div class="module-name">📦 供应链</div>
+            <div class="module-detail">原料采购 · 包装设计 · 库存管理</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">精油/油脂/碱源供应商筛选</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">包装设计（盒+标签+说明书）</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">原料成本核算 & 定价模型</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">首批原料采购下单</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('xirang','supply-chain')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：供应商对比、采购周期…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+          <div class="progress-text">10%</div>
+        </div>
+      </div>
+
+      <!-- 生产排期 -->
+      <div class="module-card" data-project="xirang" data-module="production">
+        <div class="module-top">
+          <div>
+            <div class="module-name">🏭 生产排期</div>
+            <div class="module-detail">制皂 · 晾皂(28-40天) · 质检 · 包装</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">确定首批生产批次与数量</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">制皂日期排期（第一批）</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">晾皂空间与温湿度监控方案</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">质检标准表 & 出货检查流程</div>
+            <span class="task-priority priority-low">低</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('xirang','production')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：晾皂周期关键！28-40天…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="progress-text">0%</div>
+        </div>
+      </div>
+
+      <!-- 渠道运营 -->
+      <div class="module-card" data-project="xirang" data-module="channel">
+        <div class="module-top">
+          <div>
+            <div class="module-name">🏪 渠道运营</div>
+            <div class="module-detail">线上电商 · 线下铺货 · 私域社群</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">淘宝/微店店铺开设与装修</div>
+            <span class="task-priority priority-high">高</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">私域社群搭建（微信群）</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">线下渠道：精品店/瑜伽馆/SPA试铺</div>
+            <span class="task-priority priority-low">低</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('xirang','channel')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：渠道谈判、铺货条件…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="progress-text">0%</div>
+        </div>
+      </div>
+
+      <!-- 销售数据 -->
+      <div class="module-card" data-project="xirang" data-module="revenue">
+        <div class="module-top">
+          <div>
+            <div class="module-name">💰 销售数据</div>
+            <div class="module-detail">销量 · 收入 · 复购率 · 客户反馈</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
+        </div>
+        <div class="sales-mini">
+          <div class="sales-mini-item">
+            <div class="val">0</div>
+            <div class="lbl">已售出</div>
+          </div>
+          <div class="sales-mini-item">
+            <div class="val">¥0</div>
+            <div class="lbl">本月收入</div>
+          </div>
+          <div class="sales-mini-item">
+            <div class="val">0%</div>
+            <div class="lbl">复购率</div>
+          </div>
+        </div>
+        <div class="task-list" style="margin-top:8px">
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">建立销售数据追踪表</div>
+            <span class="task-priority priority-mid">中</span>
+          </div>
+          <div class="task-item">
+            <div class="task-check" onclick="toggleCheck(this)">✓</div>
+            <div class="task-text">收集首批客户使用反馈</div>
+            <span class="task-priority priority-low">低</span>
+          </div>
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('xirang','revenue')">+ 添加任务</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：销售数据、客户反馈…"></textarea>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="progress-text">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 生活方式 · 每日生态日程 (数据来自IMA/HerSkill) -->
+  <div class="life-section" id="ecoScheduleSection">
+    <div class="life-header">
+      <div class="life-icon">☀</div>
+      <div class="life-title">生活方式 · 每日生态日程</div>
+      <span style="font-size:11px;color:var(--warm-gray);margin-left:8px">来自IMA · HerSkill</span>
+    </div>
+
+    <!-- 今日脉轮 -->
+    <div class="module-card" id="chakraCard" style="margin-bottom:10px;background:var(--white);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="chakraEmoji" style="font-size:28px"></div>
+        <div>
+          <div style="font-size:16px;font-weight:700" id="chakraName"></div>
+          <div style="font-size:12px;color:var(--warm-gray)" id="chakraSlogan"></div>
+        </div>
+        <div style="margin-left:auto;font-size:11px;padding:4px 10px;border-radius:10px;background:var(--purple-bg);color:var(--purple)">七脉轮疗愈</div>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+        <span style="font-size:12px;color:var(--warm-gray)">梵音</span>
+        <span style="font-size:15px;font-weight:700;color:var(--purple)" id="chakraBija"></span>
+        <span style="margin-left:12px;font-size:12px;color:var(--warm-gray)">冥想</span>
+        <span style="font-size:12px" id="chakraMeditation"></span>
+      </div>
+      <div style="margin-top:6px;font-size:13px;padding:6px 10px;border-radius:var(--radius-sm);background:var(--beige)" id="chakraAffirmation"></div>
+    </div>
+
+    <div class="module-grid" style="grid-template-columns:1fr 1fr">
+      <!-- 今日运动 -->
+      <div class="module-card" data-project="life" data-module="health">
+        <div class="module-top">
+          <div>
+            <div class="module-name" id="exerciseTitle">🏃 今日运动</div>
+            <div class="module-detail" id="exerciseDetail"></div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待完成</span>
+        </div>
+        <div id="exerciseContent" style="font-size:13px;color:var(--wine);padding:6px 0;line-height:1.7"></div>
+        <div class="task-list" id="exerciseTasks">
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('life','health')">+ 添加</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：今日身体状态…"></textarea>
+        </div>
+      </div>
+
+      <!-- 养生节律 -->
+      <div class="module-card" data-project="life" data-module="wellness">
+        <div class="module-top">
+          <div>
+            <div class="module-name">🌸 今日养生节律</div>
+            <div class="module-detail">港式养生 · 黄帝内经 · 科技抗衰</div>
+          </div>
+          <span class="status-badge status-plan" onclick="cycleStatus(this)">待执行</span>
+        </div>
+        <div id="wellnessTimeline" style="font-size:13px;color:var(--wine)"></div>
+        <div class="task-list" id="wellnessTasks">
+        </div>
+        <div class="add-task-btn" onclick="openAddTask('life','wellness')">+ 添加</div>
+        <div class="module-note">
+          <textarea class="note-input" placeholder="备注：今日汤谱/养生茶…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 关键事件提醒 -->
+    <div class="module-card" style="margin-top:10px" data-project="life" data-module="events">
+      <div class="module-top">
+        <div>
+          <div class="module-name">⏰ 今日关键事件</div>
+          <div class="module-detail">来自HerSkill晨间作战 · 飞书推送</div>
+        </div>
+        <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
+      </div>
+      <div class="task-list" id="eventTasks">
+        <div class="task-item">
+          <div class="task-check" onclick="toggleCheck(this)">✓</div>
+          <div class="task-text" id="eventMorning">8:00 晨间信息+作战（双早报推送）</div>
+          <span class="task-priority priority-high">高</span>
+        </div>
+        <div class="task-item">
+          <div class="task-check" onclick="toggleCheck(this)">✓</div>
+          <div class="task-text" id="eventDeepRead">7:00 精读推荐推送</div>
+          <span class="task-priority priority-mid">中</span>
+        </div>
+        <div class="task-item">
+          <div class="task-check" onclick="toggleCheck(this)">✓</div>
+          <div class="task-text">21:00 情绪觉察提醒</div>
+          <span class="task-priority priority-mid">中</span>
+        </div>
+        <div class="task-item">
+          <div class="task-check" onclick="toggleCheck(this)">✓</div>
+          <div class="task-text">22:00 睡眠提醒（港女抗衰第一支柱）</div>
+          <span class="task-priority priority-low">低</span>
+        </div>
+      </div>
+      <div class="add-task-btn" onclick="openAddTask('life','events')">+ 添加今日事件</div>
+      <div class="module-note">
+        <textarea class="note-input" placeholder="备注：今日客户会见/会议/关键节点…"></textarea>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+        <div class="progress-text">0%</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  每一个项目都是独立的利润中心 · 你一个人在推动所有齿轮转动 💪
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Add Task Modal -->
+<div class="modal-overlay" id="addTaskModal">
+  <div class="modal-box">
+    <div class="modal-title">添加任务</div>
+    <input class="modal-input" id="newTaskText" placeholder="任务内容…" autofocus>
+    <div class="modal-priority-select">
+      <div class="modal-priority-btn p-high" onclick="selectPriority(this,'high')">高优先</div>
+      <div class="modal-priority-btn p-mid sel" onclick="selectPriority(this,'mid')">中优先</div>
+      <div class="modal-priority-btn p-low" onclick="selectPriority(this,'low')">低优先</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-cancel" onclick="closeModal()">取消</button>
+      <button class="modal-btn modal-btn-ok" onclick="confirmAddTask()">添加</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Date display
+const now = new Date();
+const weeks = ['周日','周一','周二','周三','周四','周五','周六'];
+const y = now.getFullYear(), m = now.getMonth()+1, d = now.getDate();
+document.getElementById('todayDate').textContent = `${m}月${d}日`;
+document.getElementById('todayWeek').textContent = weeks[now.getDay()];
+document.getElementById('logDate').textContent = `${y}-${m}-${d}`;
+
+// Status cycle
+const statusList = [
+  { cls: 'status-plan', text: '待启动' },
+  { cls: 'status-prog', text: '推进中' },
+  { cls: 'status-ok', text: '已完成' },
+  { cls: 'status-alert', text: '受阻' },
+  { cls: 'status-pause', text: '暂停' },
+];
+function cycleStatus(el) {
+  let cur = statusList.findIndex(s => el.classList.contains(s.cls));
+  let next = (cur + 1) % statusList.length;
+  el.classList.remove(...statusList.map(s=>s.cls));
+  el.classList.add(statusList[next].cls);
+  el.textContent = statusList[next].text;
+  updateStats();
+  showToast(`状态 → ${statusList[next].text}`);
+}
+
+// Toggle check
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  const text = el.nextElementSibling;
+  if (el.classList.contains('checked')) {
+    text.classList.add('done');
+    el.textContent = '✓';
+  } else {
+    text.classList.remove('done');
+    el.textContent = '✓';
+    el.style.color = 'transparent';
+  }
+  updateProgress(el.closest('.module-card'));
+  updateStats();
+}
+
+// Update progress bar
+function updateProgress(card) {
+  const checks = card.querySelectorAll('.task-check');
+  const total = checks.length;
+  const done = checks.filter(c => c.classList.contains('checked')).length;
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+  const fill = card.querySelector('.progress-fill');
+  const text = card.querySelector('.progress-text');
+  if (fill) fill.style.width = pct + '%';
+  if (text) text.textContent = pct + '%';
+}
+
+// Stats
+function updateStats() {
+  let done=0, prog=0, block=0, plan=0;
+  document.querySelectorAll('.status-badge').forEach(b => {
+    if (b.classList.contains('status-ok')) done++;
+    if (b.classList.contains('status-prog')) prog++;
+    if (b.classList.contains('status-alert')) block++;
+    if (b.classList.contains('status-plan') || b.classList.contains('status-pause')) plan++;
+  });
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statProg').textContent = prog;
+  document.getElementById('statBlock').textContent = block;
+  document.getElementById('statPlan').textContent = plan;
+}
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1500);
+}
+
+// Contact tags toggle
+document.querySelectorAll('.contact-tag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    tag.classList.toggle('active');
+  });
+});
+
+// Add Task Modal
+let currentProject = '', currentModule = '';
+let selectedPriority = 'mid';
+
+function openAddTask(project, module) {
+  currentProject = project;
+  currentModule = module;
+  document.getElementById('newTaskText').value = '';
+  selectedPriority = 'mid';
+  document.querySelectorAll('.modal-priority-btn').forEach(b => b.classList.remove('sel'));
+  document.querySelector('.modal-priority-btn.p-mid').classList.add('sel');
+  document.getElementById('addTaskModal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('addTaskModal').classList.remove('show');
+}
+
+function selectPriority(el, level) {
+  selectedPriority = level;
+  document.querySelectorAll('.modal-priority-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function confirmAddTask() {
+  const text = document.getElementById('newTaskText').value.trim();
+  if (!text) return;
+  
+  const card = document.querySelector(`[data-project="${currentProject}"][data-module="${currentModule}"]`);
+  const taskList = card.querySelector('.task-list');
+  const addBtn = card.querySelector('.add-task-btn');
+  
+  const priorityMap = {
+    high: { cls: 'priority-high', text: '高' },
+    mid: { cls: 'priority-mid', text: '中' },
+    low: { cls: 'priority-low', text: '低' },
+  };
+  const p = priorityMap[selectedPriority];
+  
+  const div = document.createElement('div');
+  div.className = 'task-item';
+  div.innerHTML = `
+    <div class="task-check" onclick="toggleCheck(this)">✓</div>
+    <div class="task-text">${text}</div>
+    <span class="task-priority ${p.cls}">${p.text}</span>
+  `;
+  taskList.appendChild(div);
+  
+  closeModal();
+  showToast('任务已添加');
+}
+
+// Close modal on overlay click
+document.getElementById('addTaskModal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// Auto-save to localStorage
+function saveState() {
+  const state = {};
+  // Save task checks
+  document.querySelectorAll('.module-card').forEach(card => {
+    const key = card.dataset.project + '/' + card.dataset.module;
+    const checks = card.querySelectorAll('.task-check');
+    state[key] = {
+      checks: checks.map(c => c.classList.contains('checked')),
+      note: card.querySelector('.note-input')?.value || '',
+    };
+  });
+  // Save status badges
+  document.querySelectorAll('.status-badge').forEach(badge => {
+    const card = badge.closest('.module-card');
+    if (card) {
+      const key = card.dataset.project + '/' + card.dataset.module + '/status';
+      const cur = statusList.findIndex(s => badge.classList.contains(s.cls));
+      state[key] = cur;
+    }
+  });
+  // Save daily note
+  state['dailyNote'] = document.getElementById('dailyNote').value;
+  localStorage.setItem('projectDrive_' + y + '-' + m + '-' + d, JSON.stringify(state));
+}
+
+// Load state from localStorage
+function loadState() {
+  const saved = localStorage.getItem('projectDrive_' + y + '-' + m + '-' + d);
+  if (!saved) return;
+  const state = JSON.parse(saved);
+  document.querySelectorAll('.module-card').forEach(card => {
+    const key = card.dataset.project + '/' + card.dataset.module;
+    if (state[key]) {
+      const checks = card.querySelectorAll('.task-check');
+      state[key].checks.forEach((checked, i) => {
+        if (checked && checks[i]) {
+          checks[i].classList.add('checked');
+          checks[i].nextElementSibling?.classList.add('done');
+        }
+      });
+      const noteInput = card.querySelector('.note-input');
+      if (noteInput) noteInput.value = state[key].note || '';
+    }
+    const statusKey = key + '/status';
+    if (state[statusKey] !== undefined) {
+      const badge = card.querySelector('.status-badge');
+      if (badge) {
+        badge.classList.remove(...statusList.map(s=>s.cls));
+        badge.classList.add(statusList[state[statusKey]].cls);
+        badge.textContent = statusList[state[statusKey]].text;
+      }
+    }
+  });
+  if (state['dailyNote']) {
+    document.getElementById('dailyNote').value = state['dailyNote'];
+  }
+  // Update all progress bars
+  document.querySelectorAll('.module-card').forEach(card => updateProgress(card));
+  updateStats();
+}
+
+// ═══════════════════════════════════════════════════════════
+// 每日生态日程引擎 — 数据来自IMA/HerSkill Skill体系
+// 七日循环：运动、脉轮、养生节律根据当天星期自动切换
+// ═══════════════════════════════════════════════════════════
+
+const ecoSchedule = {
+  // 七脉轮疗愈 — 每天轮替，7天一循环
+  chakras: [
+    { emoji:'🔴', name:'海底轮 · 安全感', color:'#C62828', bija:'LAM', meditation:'观想红色光球在尾骨底部，如大树扎根大地', affirmation:'"我安全，我稳定，我信任生命"', keywords:'安全感·稳定·扎根' },
+    { emoji:'🟠', name:'脐轮 · 创造力', color:'#E65100', bija:'VAM', meditation:'观想橙色光球在肚脐下方，如溪流自由流动', affirmation:'"我允许情感自由流动，我创造美好生活"', keywords:'创造力·愉悦·情感流动' },
+    { emoji:'🟡', name:'太阳轮 · 自信力', color:'#D4A017', bija:'RAM', meditation:'观想黄色光球在腹部中央，如篝火燃烧恐惧', affirmation:'"我充满力量，我掌控自己的人生方向"', keywords:'自信·力量·自我价值' },
+    { emoji:'🟢', name:'心轮 · 爱', color:'#2D8A56', bija:'YAM', meditation:'观想绿色光球在胸口，如草原微风打开心', affirmation:'"我接纳自己，我爱，我被爱"', keywords:'爱·慈悲·接纳' },
+    { emoji:'🔵', name:'喉轮 · 表达', color:'#1565C0', bija:'HAM', meditation:'观想蓝色光球在喉咙，如天空般自由表达', affirmation:'"我的声音清晰有力，我真实地表达自己"', keywords:'沟通·表达·真实' },
+    { emoji:'🟣', name:'眉心轮 · 直觉', color:'#6A1B9A', bija:'OM', meditation:'观想靛蓝光球在眉心，如星光射入开启直觉', affirmation:'"我信任直觉，我看见事物的真相"', keywords:'直觉·洞察·智慧' },
+    { emoji:'🌟', name:'顶轮 · 灵性', color:'#4A148C', bija:'AUM', meditation:'观想紫光在头顶，如漂浮宇宙与万物合一', affirmation:'"我与宇宙合一，我平静，我完整"', keywords:'灵性觉醒·宇宙连结' },
+  ],
+
+  // 每周运动计划
+  exercise: {
+    1: { title:'力量训练 — 上肢', time:'18:30-19:30', kcal:'280', items:['热身10分钟','哑铃推举 4×12（肩部）','俯卧撑 4×15（胸+三头）','哑铃划船 4×12（背部）','拉伸10分钟'] },
+    2: { title:'有氧 — 晨跑', time:'7:00-7:45', kcal:'320', items:['慢跑30分钟 + 拉伸15分钟','配速6:30-7:00/km'] },
+    3: { title:'力量训练 — 下肢+核心', time:'18:30-19:30', kcal:'300', items:['深蹲 4×15（臀腿）','硬拉 4×10（后链）','平板支撑 4×45秒（核心）','臀桥 4×15（臀部）','拉伸10分钟'] },
+    4: { title:'瑜伽/普拉提', time:'7:00-7:45', kcal:'180', items:['跟练视频45分钟','侧重：肩颈放松+核心稳定'] },
+    5: { title:'休息日', time:'可散步30分钟', kcal:'50', items:['散步30分钟','让身体恢复'] },
+    6: { title:'行山/户外运动', time:'周末半天', kcal:'400-600', items:['成都周边行山/爬山','户外运动2-3小时'] },
+    0: { title:'行山/户外运动', time:'周末半天', kcal:'400-600', items:['成都周边行山/爬山','户外运动2-3小时'] },
+  },
+
+  // 养生节律提醒 — 每天固定
+  wellnessTimeline: [
+    { time:'5:40',  item:'起床 → 500ml温水+柠檬/海盐' },
+    { time:'5:55',  item:'户外快走/慢跑30min（空腹有氧促自噬）' },
+    { time:'7:15',  item:'养生茶：黄芪红枣茶（黄芪9g+红枣3颗+枸杞6g）' },
+    { time:'8:00',  item:'晨间信息+作战 · 双早报推送' },
+    { time:'10:30', item:'身体扫描（站起来5分钟，泡绿茶）' },
+    { time:'12:00', item:'抗衰午餐：八分饱+今日汤+深色蔬菜半盘' },
+    { time:'12:30', item:'散步15min 🎧听播客' },
+    { time:'13:00', item:'Power Nap 20min（NASA认证：表现提升34%）' },
+    { time:'14:00', item:'养生茶续杯：薏仁水（炒薏仁15g+茯苓9g）' },
+    { time:'17:30', item:'运动时间（按周计划）' },
+    { time:'19:15', item:'晚餐：高蛋白+大量蔬菜，7点前吃完' },
+    { time:'20:30', item:'晚间护肤仪式 + 面膜+刮脸+护眼膜' },
+    { time:'21:00', item:'七脉轮疗愈10-15分钟 + 情绪觉察' },
+    { time:'22:00', item:'睡眠提醒 · 早睡=皮质醇低谷+褪黑素高峰' },
+  ],
+};
+
+function renderEcoSchedule() {
+  const dayOfWeek = now.getDay(); // 0=周日, 1=周一...
+  const dayIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // 脉轮: 周一=0, 周日=6
+
+  // ─── 脉轮 ───
+  const chakra = ecoSchedule.chakras[dayIndex];
+  document.getElementById('chakraEmoji').textContent = chakra.emoji;
+  document.getElementById('chakraName').textContent = chakra.name;
+  document.getElementById('chakraSlogan').textContent = chakra.keywords;
+  document.getElementById('chakraBija').textContent = chakra.bija;
+  document.getElementById('chakraMeditation').textContent = chakra.meditation;
+  document.getElementById('chakraAffirmation').textContent = chakra.affirmation;
+
+  // ─── 今日运动 ───
+  const ex = ecoSchedule.exercise[dayOfWeek];
+  document.getElementById('exerciseTitle').textContent = `🏃 ${ex.title}`;
+  document.getElementById('exerciseDetail').textContent = `${ex.time} · 预估${ex.kcal}kcal`;
+  const exContent = document.getElementById('exerciseContent');
+  exContent.innerHTML = ex.items.map(i => `<div style="padding:2px 0">• ${i}</div>`).join('');
+
+  // ─── 养生节律 ───
+  const wt = document.getElementById('wellnessTimeline');
+  wt.innerHTML = ecoSchedule.wellnessTimeline.map(w =>
+    `<div style="display:flex;gap:8px;padding:3px 0;align-items:baseline">
+      <span style="font-weight:600;color:var(--wine);white-space:nowrap;min-width:44px">${w.time}</span>
+      <span>${w.item}</span>
+    </div>`
+  ).join('');
+}
+
+// 渲染生态日程
+renderEcoSchedule();
+
+// Init
+loadState();
+
+// Auto-save every 5s
+setInterval(saveState, 5000);
+
+// Save on edit
+document.querySelectorAll('.note-input, #dailyNote').forEach(el => {
+  el.addEventListener('input', () => {
+    clearTimeout(el._saveTimer);
+    el._saveTimer = setTimeout(saveState, 1000);
+  });
+});
+</script>
+
+</body>
+</html>
