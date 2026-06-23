@@ -272,6 +272,28 @@
   .priority-mid { background: var(--yellow-bg); color: var(--yellow-prog); }
   .priority-low { background: var(--blue-bg); color: var(--blue-plan); }
 
+  .task-delete {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--warm-gray);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    opacity: 0;
+  }
+  .task-item:hover .task-delete { opacity: 1; }
+  .task-delete:hover {
+    background: var(--red-bg);
+    color: var(--red-alert);
+  }
+
   /* Add Task */
   .add-task-btn {
     font-size: 12px;
@@ -637,22 +659,26 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">小红书：发布本周内容计划</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">抖音：短视频选题与拍摄</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">视频号：直播排期确认</div>
             <span class="task-priority priority-low">低</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">公众号：深度文章撰写</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('herskill','marketing')">+ 添加任务</div>
         <div class="module-note">
@@ -684,17 +710,20 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">无锡商会：跟进对接人回复</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">成都科技局：准备方案演示PPT</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">大蓉和餐饮：品牌部联络</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('herskill','sales')">+ 添加任务</div>
         <div class="module-note">
@@ -734,12 +763,14 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">确认首批签约客户名单</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">设计签约流程（合同+支付）</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('herskill','revenue')">+ 添加任务</div>
         <div class="module-note">
@@ -779,22 +810,26 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">小红书：行业案例解读内容</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">公众号：MarketCraft方法论连载</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">抖音：客户访谈短视频</div>
             <span class="task-priority priority-low">低</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">视频号：行业洞察直播</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('marketcraft','marketing')">+ 添加任务</div>
         <div class="module-note">
@@ -826,17 +861,20 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">成都科技局：咨询方案提案</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">大蓉和餐饮：品牌诊断需求确认</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">无锡商会：项目制合作方案沟通</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('marketcraft','sales')">+ 添加任务</div>
         <div class="module-note">
@@ -876,12 +914,14 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">准备标准化咨询服务合同</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">确认首单定价与交付范围</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('marketcraft','revenue')">+ 添加任务</div>
         <div class="module-note">
@@ -921,22 +961,26 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">小红书：皂品测评/精油知识图文</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">抖音：制皂过程短视频/直播</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">视频号：品牌故事系列</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">公众号：冷制皂工艺科普长文</div>
             <span class="task-priority priority-low">低</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('xirang','brand-content')">+ 添加任务</div>
         <div class="module-note">
@@ -962,22 +1006,26 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">确定首批3-5个皂品配方</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">小批量试皂 & 晾皂测试</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">皂型与外观设计确认</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">pH值测试 & 质检标准制定</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('xirang','product-dev')">+ 添加任务</div>
         <div class="module-note">
@@ -1003,22 +1051,26 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">精油/油脂/碱源供应商筛选</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">包装设计（盒+标签+说明书）</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">原料成本核算 & 定价模型</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">首批原料采购下单</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('xirang','supply-chain')">+ 添加任务</div>
         <div class="module-note">
@@ -1044,22 +1096,26 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">确定首批生产批次与数量</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">制皂日期排期（第一批）</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">晾皂空间与温湿度监控方案</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">质检标准表 & 出货检查流程</div>
             <span class="task-priority priority-low">低</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('xirang','production')">+ 添加任务</div>
         <div class="module-note">
@@ -1085,17 +1141,20 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">淘宝/微店店铺开设与装修</div>
             <span class="task-priority priority-high">高</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">私域社群搭建（微信群）</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">线下渠道：精品店/瑜伽馆/SPA试铺</div>
             <span class="task-priority priority-low">低</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('xirang','channel')">+ 添加任务</div>
         <div class="module-note">
@@ -1135,12 +1194,14 @@
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">建立销售数据追踪表</div>
             <span class="task-priority priority-mid">中</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
           <div class="task-item">
             <div class="task-check" onclick="toggleCheck(this)">✓</div>
             <div class="task-text">收集首批客户使用反馈</div>
             <span class="task-priority priority-low">低</span>
-          </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         </div>
         <div class="add-task-btn" onclick="openAddTask('xirang','revenue')">+ 添加任务</div>
         <div class="module-note">
@@ -1233,22 +1294,26 @@
           <div class="task-check" onclick="toggleCheck(this)">✓</div>
           <div class="task-text" id="eventMorning">8:00 晨间信息+作战（双早报推送）</div>
           <span class="task-priority priority-high">高</span>
-        </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         <div class="task-item">
           <div class="task-check" onclick="toggleCheck(this)">✓</div>
           <div class="task-text" id="eventDeepRead">7:00 精读推荐推送</div>
           <span class="task-priority priority-mid">中</span>
-        </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         <div class="task-item">
           <div class="task-check" onclick="toggleCheck(this)">✓</div>
           <div class="task-text">21:00 情绪觉察提醒</div>
           <span class="task-priority priority-mid">中</span>
-        </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
         <div class="task-item">
           <div class="task-check" onclick="toggleCheck(this)">✓</div>
           <div class="task-text">22:00 睡眠提醒（港女抗衰第一支柱）</div>
           <span class="task-priority priority-low">低</span>
-        </div>
+                <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
+              </div>
       </div>
       <div class="add-task-btn" onclick="openAddTask('life','events')">+ 添加今日事件</div>
       <div class="module-note">
@@ -1328,6 +1393,19 @@ function toggleCheck(el) {
   }
   updateProgress(el.closest('.module-card'));
   updateStats();
+}
+
+// Delete task
+function deleteTask(btn) {
+  const taskItem = btn.closest('.task-item');
+  if (!taskItem) return;
+  const card = taskItem.closest('.module-card');
+  taskItem.remove();
+  if (card) {
+    updateProgress(card);
+    updateStats();
+  }
+  showToast('任务已删除');
 }
 
 // Update progress bar
@@ -1461,6 +1539,7 @@ function confirmAddTask() {
     <div class="task-check" onclick="toggleCheck(this)">✓</div>
     <div class="task-text">${text}</div>
     <span class="task-priority ${p.cls}">${p.text}</span>
+    <button class="task-delete" onclick="deleteTask(this)" title="删除任务">×</button>
   `;
   taskList.appendChild(div);
   
