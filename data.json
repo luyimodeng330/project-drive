@@ -1,0 +1,238 @@
+{
+  "projects": [
+    {
+      "id": "herskill",
+      "icon": "✦",
+      "iconClass": "skill",
+      "title": "HerSkill",
+      "subtitle": "女性高管AI陪伴 · ¥19,800/年",
+      "tag": "数字服务",
+      "tagClass": "tag-service",
+      "modules": [
+        {
+          "id": "marketing",
+          "name": "📣 市场推广",
+          "detail": "小红书 · 抖音 · 视频号 · 公众号",
+          "status": "status-plan",
+          "statusText": "待启动",
+          "tasks": [
+            { "text": "小红书：发布本周内容计划", "priority": "high" },
+            { "text": "抖音：短视频选题与拍摄", "priority": "mid" },
+            { "text": "视频号：直播排期确认", "priority": "low" },
+            { "text": "公众号：深度文章撰写", "priority": "mid" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": null
+        },
+        {
+          "id": "sales",
+          "name": "🎯 销售转化",
+          "detail": "客户沟通 · 方案演示 · 促成签约",
+          "status": "status-prog",
+          "statusText": "推进中",
+          "tasks": [
+            { "text": "无锡商会：跟进对接人回复", "priority": "high" },
+            { "text": "成都科技局：准备方案演示PPT", "priority": "high" },
+            { "text": "大蓉和餐饮：品牌部联络", "priority": "mid" }
+          ],
+          "note": "",
+          "contacts": ["江苏无锡商会", "成都科技局", "大蓉和餐饮", "科技园区女企业家群"],
+          "salesMini": null
+        },
+        {
+          "id": "revenue",
+          "name": "💰 签约与销售",
+          "detail": "成交追踪 · 收入 · 客户留存",
+          "status": "status-plan",
+          "statusText": "待启动",
+          "tasks": [
+            { "text": "确认首批签约客户名单", "priority": "high" },
+            { "text": "设计签约流程（合同+支付）", "priority": "high" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": {
+            "items": [
+              { "val": "0", "lbl": "已签约" },
+              { "val": "¥0", "lbl": "本月收入" },
+              { "val": "3", "lbl": "潜在客户" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "marketcraft",
+      "icon": "◈",
+      "iconClass": "market",
+      "title": "MarketCraft",
+      "subtitle": "项目制咨询 · ¥5-15万/项目",
+      "tag": "咨询服务",
+      "tagClass": "tag-consult",
+      "modules": [
+        {
+          "id": "marketing",
+          "name": "📣 市场推广",
+          "detail": "小红书 · 抖音 · 视频号 · 公众号",
+          "status": "status-prog",
+          "statusText": "推进中",
+          "tasks": [
+            { "text": "小红书：行业案例解读内容", "priority": "high" },
+            { "text": "公众号：MarketCraft方法论连载", "priority": "mid" },
+            { "text": "抖音：客户访谈短视频", "priority": "low" },
+            { "text": "视频号：行业洞察直播", "priority": "mid" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": null
+        },
+        {
+          "id": "sales",
+          "name": "🎯 销售转化",
+          "detail": "企业客户 · 方案定制 · 项目签约",
+          "status": "status-prog",
+          "statusText": "推进中",
+          "tasks": [
+            { "text": "成都科技局：咨询方案提案", "priority": "high" },
+            { "text": "大蓉和餐饮：品牌诊断需求确认", "priority": "high" },
+            { "text": "无锡商会：项目制合作方案沟通", "priority": "mid" }
+          ],
+          "note": "",
+          "contacts": ["成都科技局", "大蓉和餐饮品牌部", "无锡商会企业家", "中小企业协会"],
+          "salesMini": null
+        },
+        {
+          "id": "revenue",
+          "name": "💰 签约与销售",
+          "detail": "项目签约 · 收入 · 交付进度",
+          "status": "status-plan",
+          "statusText": "待启动",
+          "tasks": [
+            { "text": "准备标准化咨询服务合同", "priority": "high" },
+            { "text": "确认首单定价与交付范围", "priority": "high" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": {
+            "items": [
+              { "val": "0", "lbl": "已签约项目" },
+              { "val": "¥0", "lbl": "本月收入" },
+              { "val": "2", "lbl": "提案中" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "xirang",
+      "icon": "🌿",
+      "iconClass": "soap",
+      "title": "息壤 · 冷制皂",
+      "subtitle": "精油冷制皂品牌 · 实体产品",
+      "tag": "实体产品",
+      "tagClass": "tag-product",
+      "modules": [
+        {
+          "id": "brand-content",
+          "name": "📣 品牌内容",
+          "detail": "小红书 · 抖音 · 视频号 · 公众号",
+          "status": "status-prog",
+          "statusText": "推进中",
+          "tasks": [
+            { "text": "小红书：皂品测评/精油知识图文", "priority": "high" },
+            { "text": "抖音：制皂过程短视频/直播", "priority": "high" },
+            { "text": "视频号：品牌故事系列", "priority": "mid" },
+            { "text": "公众号：冷制皂工艺科普长文", "priority": "low" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": null
+        },
+        {
+          "id": "product-dev",
+          "name": "🧪 产品研发",
+          "detail": "配方开发 · 新品测试 · 皂型设计",
+          "status": "status-prog",
+          "statusText": "推进中",
+          "tasks": [
+            { "text": "确定首批3-5个皂品配方", "priority": "high" },
+            { "text": "小批量试皂 & 晾皂测试", "priority": "high" },
+            { "text": "皂型与外观设计确认", "priority": "mid" },
+            { "text": "pH值测试 & 质检标准制定", "priority": "mid" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": null
+        },
+        {
+          "id": "supply-chain",
+          "name": "📦 供应链",
+          "detail": "原料采购 · 包装设计 · 库存管理",
+          "status": "status-plan",
+          "statusText": "待启动",
+          "tasks": [
+            { "text": "精油/油脂/碱源供应商筛选", "priority": "high" },
+            { "text": "包装设计（盒+标签+说明书）", "priority": "high" },
+            { "text": "原料成本核算 & 定价模型", "priority": "mid" },
+            { "text": "首批原料采购下单", "priority": "mid" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": null
+        },
+        {
+          "id": "production",
+          "name": "🏭 生产排期",
+          "detail": "制皂 · 晾皂(28-40天) · 质检 · 包装",
+          "status": "status-plan",
+          "statusText": "待启动",
+          "tasks": [
+            { "text": "确定首批生产批次与数量", "priority": "high" },
+            { "text": "制皂日期排期（第一批）", "priority": "high" },
+            { "text": "晾皂空间与温湿度监控方案", "priority": "mid" },
+            { "text": "质检标准表 & 出货检查流程", "priority": "low" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": null
+        },
+        {
+          "id": "channel",
+          "name": "🏪 渠道运营",
+          "detail": "线上电商 · 线下铺货 · 私域社群",
+          "status": "status-plan",
+          "statusText": "待启动",
+          "tasks": [
+            { "text": "淘宝/微店店铺开设与装修", "priority": "high" },
+            { "text": "私域社群搭建（微信群）", "priority": "mid" },
+            { "text": "线下渠道：精品店/瑜伽馆/SPA试铺", "priority": "low" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": null
+        },
+        {
+          "id": "revenue",
+          "name": "💰 销售数据",
+          "detail": "销量 · 收入 · 复购率 · 客户反馈",
+          "status": "status-plan",
+          "statusText": "待启动",
+          "tasks": [
+            { "text": "建立销售数据追踪表", "priority": "mid" },
+            { "text": "收集首批客户使用反馈", "priority": "low" }
+          ],
+          "note": "",
+          "contacts": [],
+          "salesMini": {
+            "items": [
+              { "val": "0", "lbl": "已售出" },
+              { "val": "¥0", "lbl": "本月收入" },
+              { "val": "0%", "lbl": "复购率" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
