@@ -536,28 +536,7 @@
     .stats-bar { max-width: 900px; margin: 0 auto; }
   }
 </style>
-
-<script>
-(function(){
-  try{
-    var beacon=new BeaconAction({
-      appkey:'0WEB06U85YBSLJNL',
-      versionCode:'1.0.0',
-      channelID:'share',
-      delay:1000,
-      sessionDuration:30*60*1000,
-      isOversea:false,
-      needReportRqdEvent:false
-    });
-    beacon.onDirectUserAction('preview_page_view',{
-      'url':location.href,
-      'referrer':document.referrer,
-      'title':document.title,
-      'sandbox_id':'d91f8eb52c0841a6a41ce189ac7c0193'
-    });
-  }catch(e){}
-})();
-</script></head>
+</head>
 <body>
 
 <!-- Header -->
@@ -603,545 +582,8 @@
     <textarea class="log-input" id="dailyNote" placeholder="今天最重要的3件事、心得、灵感…"></textarea>
   </div>
 
-  <!-- HerSkill -->
-  <div class="project-section" id="project-herskill">
-    <div class="project-header">
-      <div class="project-icon skill">✦</div>
-      <div>
-        <div class="project-title">HerSkill</div>
-        <div class="project-subtitle">女性高管AI陪伴 · ¥19,800/年</div>
-      </div>
-      <span class="project-tag tag-service">数字服务</span>
-    </div>
-    <div class="module-grid">
-      <!-- 市场推广 -->
-      <div class="module-card" data-project="herskill" data-module="marketing">
-        <div class="module-top">
-          <div>
-            <div class="module-name">📣 市场推广</div>
-            <div class="module-detail">小红书 · 抖音 · 视频号 · 公众号</div>
-          </div>
-          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">小红书：发布本周内容计划</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">抖音：短视频选题与拍摄</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">视频号：直播排期确认</div>
-            <span class="task-priority priority-low">低</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">公众号：深度文章撰写</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('herskill','marketing')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：内容排期、素材库…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-          <div class="progress-text">0%</div>
-        </div>
-      </div>
-
-      <!-- 销售转化 -->
-      <div class="module-card" data-project="herskill" data-module="sales">
-        <div class="module-top">
-          <div>
-            <div class="module-name">🎯 销售转化</div>
-            <div class="module-detail">客户沟通 · 方案演示 · 促成签约</div>
-          </div>
-          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
-        </div>
-        <div class="contact-tags">
-          <span class="contact-tag active">江苏无锡商会</span>
-          <span class="contact-tag">成都科技局</span>
-          <span class="contact-tag">大蓉和餐饮</span>
-          <span class="contact-tag">科技园区女企业家群</span>
-        </div>
-        <div class="task-list" style="margin-top:8px">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">无锡商会：跟进对接人回复</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">成都科技局：准备方案演示PPT</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">大蓉和餐饮：品牌部联络</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('herskill','sales')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：沟通进展、下次跟进时间…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
-          <div class="progress-text">10%</div>
-        </div>
-      </div>
-
-      <!-- 签约/销售 -->
-      <div class="module-card" data-project="herskill" data-module="revenue">
-        <div class="module-top">
-          <div>
-            <div class="module-name">💰 签约与销售</div>
-            <div class="module-detail">成交追踪 · 收入 · 客户留存</div>
-          </div>
-          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
-        </div>
-        <div class="sales-mini">
-          <div class="sales-mini-item">
-            <div class="val">0</div>
-            <div class="lbl">已签约</div>
-          </div>
-          <div class="sales-mini-item">
-            <div class="val">¥0</div>
-            <div class="lbl">本月收入</div>
-          </div>
-          <div class="sales-mini-item">
-            <div class="val">3</div>
-            <div class="lbl">潜在客户</div>
-          </div>
-        </div>
-        <div class="task-list" style="margin-top:8px">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">确认首批签约客户名单</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">设计签约流程（合同+支付）</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('herskill','revenue')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：签约进展、客户反馈…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-          <div class="progress-text">0%</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MarketCraft -->
-  <div class="project-section" id="project-marketcraft">
-    <div class="project-header">
-      <div class="project-icon market">◈</div>
-      <div>
-        <div class="project-title">MarketCraft</div>
-        <div class="project-subtitle">项目制咨询 · ¥5-15万/项目</div>
-      </div>
-      <span class="project-tag tag-consult">咨询服务</span>
-    </div>
-    <div class="module-grid">
-      <!-- 市场推广 -->
-      <div class="module-card" data-project="marketcraft" data-module="marketing">
-        <div class="module-top">
-          <div>
-            <div class="module-name">📣 市场推广</div>
-            <div class="module-detail">小红书 · 抖音 · 视频号 · 公众号</div>
-          </div>
-          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">小红书：行业案例解读内容</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">公众号：MarketCraft方法论连载</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">抖音：客户访谈短视频</div>
-            <span class="task-priority priority-low">低</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">视频号：行业洞察直播</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('marketcraft','marketing')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：内容排期…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:15%"></div></div>
-          <div class="progress-text">15%</div>
-        </div>
-      </div>
-
-      <!-- 销售转化 -->
-      <div class="module-card" data-project="marketcraft" data-module="sales">
-        <div class="module-top">
-          <div>
-            <div class="module-name">🎯 销售转化</div>
-            <div class="module-detail">企业客户 · 方案定制 · 项目签约</div>
-          </div>
-          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
-        </div>
-        <div class="contact-tags">
-          <span class="contact-tag active">成都科技局</span>
-          <span class="contact-tag">大蓉和餐饮品牌部</span>
-          <span class="contact-tag">无锡商会企业家</span>
-          <span class="contact-tag">中小企业协会</span>
-        </div>
-        <div class="task-list" style="margin-top:8px">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">成都科技局：咨询方案提案</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">大蓉和餐饮：品牌诊断需求确认</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">无锡商会：项目制合作方案沟通</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('marketcraft','sales')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：客户需求、提案进度…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
-          <div class="progress-text">20%</div>
-        </div>
-      </div>
-
-      <!-- 签约/销售 -->
-      <div class="module-card" data-project="marketcraft" data-module="revenue">
-        <div class="module-top">
-          <div>
-            <div class="module-name">💰 签约与销售</div>
-            <div class="module-detail">项目签约 · 收入 · 交付进度</div>
-          </div>
-          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
-        </div>
-        <div class="sales-mini">
-          <div class="sales-mini-item">
-            <div class="val">0</div>
-            <div class="lbl">已签约项目</div>
-          </div>
-          <div class="sales-mini-item">
-            <div class="val">¥0</div>
-            <div class="lbl">本月收入</div>
-          </div>
-          <div class="sales-mini-item">
-            <div class="val">2</div>
-            <div class="lbl">提案中</div>
-          </div>
-        </div>
-        <div class="task-list" style="margin-top:8px">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">准备标准化咨询服务合同</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">确认首单定价与交付范围</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('marketcraft','revenue')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：项目进展、交付节点…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-          <div class="progress-text">0%</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 息壤 -->
-  <div class="project-section" id="project-xirang">
-    <div class="project-header">
-      <div class="project-icon soap">🌿</div>
-      <div>
-        <div class="project-title">息壤 · 冷制皂</div>
-        <div class="project-subtitle">精油冷制皂品牌 · 实体产品</div>
-      </div>
-      <span class="project-tag tag-product">实体产品</span>
-    </div>
-    <div class="module-grid">
-      <!-- 品牌内容 -->
-      <div class="module-card" data-project="xirang" data-module="brand-content">
-        <div class="module-top">
-          <div>
-            <div class="module-name">📣 品牌内容</div>
-            <div class="module-detail">小红书 · 抖音 · 视频号 · 公众号</div>
-          </div>
-          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">小红书：皂品测评/精油知识图文</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">抖音：制皂过程短视频/直播</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">视频号：品牌故事系列</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">公众号：冷制皂工艺科普长文</div>
-            <span class="task-priority priority-low">低</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('xirang','brand-content')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：内容排期、拍摄计划…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
-          <div class="progress-text">20%</div>
-        </div>
-      </div>
-
-      <!-- 产品研发 -->
-      <div class="module-card" data-project="xirang" data-module="product-dev">
-        <div class="module-top">
-          <div>
-            <div class="module-name">🧪 产品研发</div>
-            <div class="module-detail">配方开发 · 新品测试 · 皂型设计</div>
-          </div>
-          <span class="status-badge status-prog" onclick="cycleStatus(this)">推进中</span>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">确定首批3-5个皂品配方</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">小批量试皂 & 晾皂测试</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">皂型与外观设计确认</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">pH值测试 & 质检标准制定</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('xirang','product-dev')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：配方笔记、晾皂周期28-40天…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
-          <div class="progress-text">30%</div>
-        </div>
-      </div>
-
-      <!-- 供应链 -->
-      <div class="module-card" data-project="xirang" data-module="supply-chain">
-        <div class="module-top">
-          <div>
-            <div class="module-name">📦 供应链</div>
-            <div class="module-detail">原料采购 · 包装设计 · 库存管理</div>
-          </div>
-          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">精油/油脂/碱源供应商筛选</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">包装设计（盒+标签+说明书）</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">原料成本核算 & 定价模型</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">首批原料采购下单</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('xirang','supply-chain')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：供应商对比、采购周期…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
-          <div class="progress-text">10%</div>
-        </div>
-      </div>
-
-      <!-- 生产排期 -->
-      <div class="module-card" data-project="xirang" data-module="production">
-        <div class="module-top">
-          <div>
-            <div class="module-name">🏭 生产排期</div>
-            <div class="module-detail">制皂 · 晾皂(28-40天) · 质检 · 包装</div>
-          </div>
-          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">确定首批生产批次与数量</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">制皂日期排期（第一批）</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">晾皂空间与温湿度监控方案</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">质检标准表 & 出货检查流程</div>
-            <span class="task-priority priority-low">低</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('xirang','production')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：晾皂周期关键！28-40天…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-          <div class="progress-text">0%</div>
-        </div>
-      </div>
-
-      <!-- 渠道运营 -->
-      <div class="module-card" data-project="xirang" data-module="channel">
-        <div class="module-top">
-          <div>
-            <div class="module-name">🏪 渠道运营</div>
-            <div class="module-detail">线上电商 · 线下铺货 · 私域社群</div>
-          </div>
-          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
-        </div>
-        <div class="task-list">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">淘宝/微店店铺开设与装修</div>
-            <span class="task-priority priority-high">高</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">私域社群搭建（微信群）</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">线下渠道：精品店/瑜伽馆/SPA试铺</div>
-            <span class="task-priority priority-low">低</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('xirang','channel')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：渠道谈判、铺货条件…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-          <div class="progress-text">0%</div>
-        </div>
-      </div>
-
-      <!-- 销售数据 -->
-      <div class="module-card" data-project="xirang" data-module="revenue">
-        <div class="module-top">
-          <div>
-            <div class="module-name">💰 销售数据</div>
-            <div class="module-detail">销量 · 收入 · 复购率 · 客户反馈</div>
-          </div>
-          <span class="status-badge status-plan" onclick="cycleStatus(this)">待启动</span>
-        </div>
-        <div class="sales-mini">
-          <div class="sales-mini-item">
-            <div class="val">0</div>
-            <div class="lbl">已售出</div>
-          </div>
-          <div class="sales-mini-item">
-            <div class="val">¥0</div>
-            <div class="lbl">本月收入</div>
-          </div>
-          <div class="sales-mini-item">
-            <div class="val">0%</div>
-            <div class="lbl">复购率</div>
-          </div>
-        </div>
-        <div class="task-list" style="margin-top:8px">
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">建立销售数据追踪表</div>
-            <span class="task-priority priority-mid">中</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleCheck(this)">✓</div>
-            <div class="task-text">收集首批客户使用反馈</div>
-            <span class="task-priority priority-low">低</span>
-          </div>
-        </div>
-        <div class="add-task-btn" onclick="openAddTask('xirang','revenue')">+ 添加任务</div>
-        <div class="module-note">
-          <textarea class="note-input" placeholder="备注：销售数据、客户反馈…"></textarea>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-          <div class="progress-text">0%</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 项目区域（从 data.json 动态渲染） -->
+  <div id="projectsContainer"></div>
 
   <!-- 生活方式 · 每日生态日程 (数据来自IMA/HerSkill) -->
   <div class="life-section" id="ecoScheduleSection">
@@ -1557,22 +999,119 @@ function renderEcoSchedule() {
   ).join('');
 }
 
-// 渲染生态日程
-renderEcoSchedule();
+// ═══════════════════════════════════════════════════════════
+// 动态渲染项目数据（从 data.json 加载）
+// ═══════════════════════════════════════════════════════════
 
-// Init
-loadState();
+const priorityMap = {
+  high: { cls: 'priority-high', text: '高' },
+  mid:  { cls: 'priority-mid',  text: '中' },
+  low:  { cls: 'priority-low',  text: '低' },
+};
+
+function renderProjects(projects) {
+  const container = document.getElementById('projectsContainer');
+  container.innerHTML = projects.map(proj => `
+    <div class="project-section" id="project-${proj.id}">
+      <div class="project-header">
+        <div class="project-icon ${proj.iconClass}">${proj.icon}</div>
+        <div>
+          <div class="project-title">${proj.title}</div>
+          <div class="project-subtitle">${proj.subtitle}</div>
+        </div>
+        <span class="project-tag ${proj.tagClass}">${proj.tag}</span>
+      </div>
+      <div class="module-grid">
+        ${proj.modules.map(mod => renderModule(proj.id, mod)).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderModule(projId, mod) {
+  let html = `<div class="module-card" data-project="${projId}" data-module="${mod.id}">
+    <div class="module-top">
+      <div>
+        <div class="module-name">${mod.name}</div>
+        <div class="module-detail">${mod.detail}</div>
+      </div>
+      <span class="status-badge ${mod.status}" onclick="cycleStatus(this)">${mod.statusText}</span>
+    </div>`;
+
+  if (mod.contacts && mod.contacts.length > 0) {
+    html += `<div class="contact-tags">`;
+    mod.contacts.forEach((c, i) => {
+      html += `<span class="contact-tag${i === 0 ? ' active' : ''}">${c}</span>`;
+    });
+    html += `</div>`;
+  }
+
+  if (mod.salesMini) {
+    html += `<div class="sales-mini">`;
+    mod.salesMini.items.forEach(item => {
+      html += `<div class="sales-mini-item"><div class="val">${item.val}</div><div class="lbl">${item.lbl}</div></div>`;
+    });
+    html += `</div>`;
+  }
+
+  const marginTop = (mod.contacts && mod.contacts.length > 0) || mod.salesMini ? ' style="margin-top:8px"' : '';
+  html += `<div class="task-list"${marginTop}>`;
+  mod.tasks.forEach(task => {
+    const p = priorityMap[task.priority] || priorityMap.mid;
+    html += `<div class="task-item">
+      <div class="task-check" onclick="toggleCheck(this)">✓</div>
+      <div class="task-text">${task.text}</div>
+      <span class="task-priority ${p.cls}">${p.text}</span>
+    </div>`;
+  });
+  html += `</div>`;
+
+  const notePlaceholder = mod.notePlaceholder || '备注…';
+  html += `<div class="add-task-btn" onclick="openAddTask('${projId}','${mod.id}')">+ 添加任务</div>
+    <div class="module-note">
+      <textarea class="note-input" placeholder="${notePlaceholder}"></textarea>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-text">0%</div>
+    </div>
+  </div>`;
+
+  return html;
+}
+
+// 绑定动态渲染后的事件
+function bindDynamicEvents() {
+  // Contact tags toggle
+  document.querySelectorAll('.contact-tag').forEach(tag => {
+    tag.addEventListener('click', () => tag.classList.toggle('active'));
+  });
+  // Note inputs auto-save
+  document.querySelectorAll('.note-input, #dailyNote').forEach(el => {
+    el.addEventListener('input', () => {
+      clearTimeout(el._saveTimer);
+      el._saveTimer = setTimeout(saveState, 1000);
+    });
+  });
+}
+
+// 加载数据并初始化
+fetch('data.json')
+  .then(r => r.json())
+  .then(data => {
+    renderProjects(data.projects);
+    renderEcoSchedule();
+    loadState();
+    bindDynamicEvents();
+  })
+  .catch(err => {
+    console.error('Failed to load data.json:', err);
+    document.getElementById('projectsContainer').innerHTML =
+      '<div style="padding:20px;text-align:center;color:var(--warm-gray)">数据加载失败，请检查 data.json</div>';
+  });
 
 // Auto-save every 5s
 setInterval(saveState, 5000);
-
-// Save on edit
-document.querySelectorAll('.note-input, #dailyNote').forEach(el => {
-  el.addEventListener('input', () => {
-    clearTimeout(el._saveTimer);
-    el._saveTimer = setTimeout(saveState, 1000);
-  });
-});
 </script>
 
 </body>
